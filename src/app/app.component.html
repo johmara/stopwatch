@@ -50,7 +50,16 @@
           (input)="updateName(stopwatch.id, $any($event.target).value)"
           placeholder="Stopwatch name"
         />
-        <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
+        <div class="header-buttons">
+          <button 
+            class="btn-edit-time" 
+            (click)="startEditingTime(stopwatch.id)"
+            title="Edit time manually"
+          >
+            ✎
+          </button>
+          <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
+        </div>
       </div>
       
       <div class="stopwatch-time-wrapper">
@@ -73,13 +82,6 @@
           placeholder="Time in seconds"
           #timeInput
         />
-        <button 
-          class="btn-edit-time" 
-          (click)="startEditingTime(stopwatch.id)"
-          title="Edit time manually"
-        >
-          ✎
-        </button>
       </div>
 
       <div *ngIf="!hideButtons" class="stopwatch-controls">

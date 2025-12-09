@@ -187,6 +187,12 @@ header h1 {
   margin-bottom: 1rem;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
 .stopwatch-name {
   flex: 1;
   font-size: 1.1rem;
@@ -225,7 +231,6 @@ header h1 {
 }
 
 .stopwatch-time-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,15 +273,18 @@ header h1 {
 }
 
 .btn-edit-time {
-  position: absolute;
-  right: 0.5rem;
   background: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: var(--accent-color-2);
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   transition: all 0.2s;
   opacity: 0.5;
 }
