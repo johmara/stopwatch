@@ -81,8 +81,8 @@
       (drop)="onDrop(i, $event)"
       (dragend)="onDragEnd()"
     >
-      <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
       <div class="stopwatch-header">
+        <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
         <input 
           type="text" 
           class="stopwatch-name"
@@ -113,13 +113,13 @@
         </div>
         <input 
           *ngIf="editingTime === stopwatch.id" 
-          type="number" 
+          [type]="displayInSeconds ? 'number' : 'text'" 
           class="stopwatch-time-input"
-          [value]="stopwatch.time / 1000"
+          [value]="getEditTimeValue(stopwatch.id)"
           (blur)="finishEditingTime(stopwatch.id)"
           (keydown.enter)="finishEditingTime(stopwatch.id)"
           (input)="updateTimeInput(stopwatch.id, $any($event.target).value)"
-          placeholder="Time in seconds"
+          [placeholder]="displayInSeconds ? 'Time in seconds' : 'HH:MM:SS.MS'"
           #timeInput
         />
       </div>

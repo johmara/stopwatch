@@ -204,16 +204,15 @@ header h1 {
 }
 
 .drag-handle {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
   font-size: 1.2rem;
   color: var(--main-color);
   opacity: 0.3;
   transition: opacity 0.2s;
   cursor: grab;
   user-select: none;
-  pointer-events: none;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
 }
 
 .stopwatch-card:hover .drag-handle {

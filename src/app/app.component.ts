@@ -349,12 +349,52 @@ export class AppComponent implements OnInit {
     }
   }
 
+  getEditTimeValue(id: number): string {
+    const stopwatch = this.stopwatches.find(sw => sw.id === id);
+    if (!stopwatch) return '';
+
+    if (this.displayInSeconds) {
+      // Return seconds with 2 decimal places
+      return (stopwatch.time / 1000).toFixed(2);
+    } else {
+      // Return HH:MM:SS.MS format
+      const totalSeconds = Math.floor(stopwatch.time / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const milliseconds = Math.floor((stopwatch.time % 1000) / 10);
+
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+    }
+  }
+
   updateTimeInput(id: number, value: string) {
     const stopwatch = this.stopwatches.find(sw => sw.id === id);
-    if (stopwatch) {
+    if (!stopwatch) return;
+
+    if (this.displayInSeconds) {
+      // Parse as seconds
       const seconds = parseFloat(value) || 0;
       stopwatch.time = Math.max(0, seconds * 1000);
+    } else {
+      // Parse HH:MM:SS.MS format
+      const timeMs = this.parseTimeString(value);
+      stopwatch.time = Math.max(0, timeMs);
     }
+  }
+
+  private parseTimeString(timeStr: string): number {
+    // Parse HH:MM:SS.MS format
+    const parts = timeStr.split(':');
+    if (parts.length !== 3) return 0;
+
+    const hours = parseInt(parts[0]) || 0;
+    const minutes = parseInt(parts[1]) || 0;
+    const secondsParts = parts[2].split('.');
+    const seconds = parseInt(secondsParts[0]) || 0;
+    const centiseconds = secondsParts.length > 1 ? parseInt(secondsParts[1].padEnd(2, '0').substring(0, 2)) : 0;
+
+    return (hours * 3600 + minutes * 60 + seconds) * 1000 + centiseconds * 10;
   }
 
   finishEditingTime(id: number) {
