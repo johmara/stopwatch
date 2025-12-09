@@ -5,7 +5,7 @@
 **A sleek, powerful stopwatch app with keyboard shortcuts and dark mode**
 
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://johan.martinson.phd/stopwatch/)
-[![Angular](https://img.shields.io/badge/Angular-19-red?style=for-the-badge&logo=angular)](https://angular.io)
+[![Angular](https://img.shields.io/badge/Angular-19.2_LTS-red?style=for-the-badge&logo=angular)](https://angular.io)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
@@ -88,7 +88,7 @@
 
 ## 💻 Development
 
-This project uses Angular 19 with TypeScript strict mode.
+This project uses Angular 19.2 LTS with TypeScript strict mode.
 
 ### Setup
 ```bash
@@ -115,7 +115,7 @@ src/
 ```
 
 ### Key Technologies
-- **Angular 19**: Module-based architecture (not standalone)
+- **Angular 19.2 LTS**: Module-based architecture (not standalone)
 - **TypeScript**: Strict mode with explicit types
 - **CSS Variables**: For light/dark theme switching
 - **LocalStorage**: For data persistence

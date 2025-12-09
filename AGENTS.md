@@ -7,7 +7,7 @@
 - **Tests**: `npm test` (no tests currently configured)
 
 ## Code Style
-- **Framework**: Angular 19, module-based (NOT standalone components)
+- **Framework**: Angular 19.2 LTS, module-based (NOT standalone components)
 - **TypeScript**: Strict mode enabled (`strict: true`, `noImplicitReturns`, `noFallthroughCasesInSwitch`)
 - **Imports**: Angular core imports first, then interfaces, alphabetically within groups
 - **Types**: Explicit types required; use interfaces for data models (e.g., `Stopwatch`)
