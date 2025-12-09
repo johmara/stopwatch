@@ -1,10 +1,12 @@
 <div class="container">
   <header>
     <h1>Multi-Stopwatch Timer</h1>
-    <p class="subtitle">Manage unlimited stopwatches with keyboard shortcuts</p>
     <div class="display-toggle">
       <button class="btn btn-sm btn-outline" (click)="toggleDisplayFormat()">
         {{ displayInSeconds ? 'Show HH:MM:SS' : 'Show Seconds' }}
+      </button>
+      <button class="btn btn-sm btn-outline" (click)="toggleHideButtons()">
+        {{ hideButtons ? 'Show Buttons' : 'Hide Buttons' }}
       </button>
     </div>
   </header>
@@ -51,11 +53,36 @@
         <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
       </div>
       
-      <div class="stopwatch-time">
-        {{ formatTime(stopwatch.time) }}
+      <div class="stopwatch-time-wrapper">
+        <div 
+          *ngIf="editingTime !== stopwatch.id" 
+          class="stopwatch-time" 
+          (click)="toggleStopwatch(stopwatch.id)"
+          title="Click to start/stop"
+        >
+          {{ formatTime(stopwatch.time) }}
+        </div>
+        <input 
+          *ngIf="editingTime === stopwatch.id" 
+          type="number" 
+          class="stopwatch-time-input"
+          [value]="stopwatch.time / 1000"
+          (blur)="finishEditingTime(stopwatch.id)"
+          (keydown.enter)="finishEditingTime(stopwatch.id)"
+          (input)="updateTimeInput(stopwatch.id, $any($event.target).value)"
+          placeholder="Time in seconds"
+          #timeInput
+        />
+        <button 
+          class="btn-edit-time" 
+          (click)="startEditingTime(stopwatch.id)"
+          title="Edit time manually"
+        >
+          ✎
+        </button>
       </div>
 
-      <div class="stopwatch-controls">
+      <div *ngIf="!hideButtons" class="stopwatch-controls">
         <button 
           class="btn btn-sm"
           [class.btn-success]="!stopwatch.isRunning"
@@ -69,7 +96,7 @@
         </button>
       </div>
 
-      <div class="shortcut-section">
+      <div *ngIf="!hideButtons" class="shortcut-section">
         <div *ngIf="editingShortcut === stopwatch.id" class="shortcut-editing">
           Press any key...
         </div>

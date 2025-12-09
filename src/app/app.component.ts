@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
   editingShortcut: number | null = null;
   draggedIndex: number | null = null;
   displayInSeconds: boolean = false;
+  hideButtons: boolean = false;
+  editingTime: number | null = null;
 
   get allStopped(): boolean {
     return this.stopwatches.every(sw => !sw.isRunning);
@@ -48,6 +50,12 @@ export class AppComponent implements OnInit {
     const displayPref = localStorage.getItem('displayInSeconds');
     if (displayPref !== null) {
       this.displayInSeconds = displayPref === 'true';
+    }
+
+    // Load hide buttons preference
+    const hideButtonsPref = localStorage.getItem('hideButtons');
+    if (hideButtonsPref !== null) {
+      this.hideButtons = hideButtonsPref === 'true';
     }
   }
 
@@ -279,6 +287,39 @@ export class AppComponent implements OnInit {
   toggleDisplayFormat() {
     this.displayInSeconds = !this.displayInSeconds;
     localStorage.setItem('displayInSeconds', this.displayInSeconds.toString());
+  }
+
+  toggleHideButtons() {
+    this.hideButtons = !this.hideButtons;
+    localStorage.setItem('hideButtons', this.hideButtons.toString());
+  }
+
+  startEditingTime(id: number) {
+    const stopwatch = this.stopwatches.find(sw => sw.id === id);
+    if (stopwatch && !stopwatch.isRunning) {
+      this.editingTime = id;
+      // Focus the input after Angular renders it
+      setTimeout(() => {
+        const input = document.querySelector('.stopwatch-time-input') as HTMLInputElement;
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      }, 0);
+    }
+  }
+
+  updateTimeInput(id: number, value: string) {
+    const stopwatch = this.stopwatches.find(sw => sw.id === id);
+    if (stopwatch) {
+      const seconds = parseFloat(value) || 0;
+      stopwatch.time = Math.max(0, seconds * 1000);
+    }
+  }
+
+  finishEditingTime(id: number) {
+    this.editingTime = null;
+    this.saveToLocalStorage();
   }
 
   private saveToLocalStorage() {
