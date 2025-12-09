@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, NgZone } from '@angular/core';
 
 interface Stopwatch {
   id: number;
@@ -36,6 +36,8 @@ export class AppComponent implements OnInit {
   get allStopped(): boolean {
     return this.stopwatches.every(sw => !sw.isRunning);
   }
+
+  constructor(private ngZone: NgZone) {}
 
   ngOnInit() {
     // Load saved stopwatches from localStorage
@@ -139,7 +141,9 @@ export class AppComponent implements OnInit {
       stopwatch.intervalId = undefined;
     } else {
       stopwatch.intervalId = setInterval(() => {
-        stopwatch.time += 10;
+        this.ngZone.run(() => {
+          stopwatch.time += 10;
+        });
       }, 10);
       stopwatch.isRunning = true;
     }
