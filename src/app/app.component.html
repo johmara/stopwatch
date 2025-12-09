@@ -1,0 +1,83 @@
+<div class="container">
+  <header>
+    <h1>Multi-Stopwatch Timer</h1>
+    <p class="subtitle">Manage up to 20 stopwatches with keyboard shortcuts</p>
+  </header>
+
+  <div class="controls">
+    <button class="btn btn-primary" (click)="addStopwatch()" [disabled]="stopwatches.length >= 20">
+      Add Stopwatch ({{ stopwatches.length }}/20)
+    </button>
+    <button class="btn btn-success" (click)="startAll()" [disabled]="stopwatches.length === 0">
+      Start All
+    </button>
+    <button class="btn btn-warning" (click)="stopAll()" [disabled]="stopwatches.length === 0">
+      Stop All
+    </button>
+    <button class="btn btn-secondary" (click)="resetAll()" [disabled]="stopwatches.length === 0">
+      Reset All
+    </button>
+    <button class="btn btn-danger" (click)="clearAll()" [disabled]="stopwatches.length === 0">
+      Clear All
+    </button>
+    <button class="btn btn-info" (click)="exportToCSV()" [disabled]="stopwatches.length === 0">
+      Export to CSV
+    </button>
+  </div>
+
+  <div class="stopwatches-grid">
+    <div *ngFor="let stopwatch of stopwatches" class="stopwatch-card" [class.running]="stopwatch.isRunning">
+      <div class="stopwatch-header">
+        <input 
+          type="text" 
+          class="stopwatch-name"
+          [value]="stopwatch.name"
+          (input)="updateName(stopwatch.id, $any($event.target).value)"
+          placeholder="Stopwatch name"
+        />
+        <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
+      </div>
+      
+      <div class="stopwatch-time">
+        {{ formatTime(stopwatch.time) }}
+      </div>
+
+      <div class="stopwatch-controls">
+        <button 
+          class="btn btn-sm"
+          [class.btn-success]="!stopwatch.isRunning"
+          [class.btn-warning]="stopwatch.isRunning"
+          (click)="toggleStopwatch(stopwatch.id)"
+        >
+          {{ stopwatch.isRunning ? 'Stop' : 'Start' }}
+        </button>
+        <button class="btn btn-sm btn-secondary" (click)="resetStopwatch(stopwatch.id)">
+          Reset
+        </button>
+      </div>
+
+      <div class="shortcut-section">
+        <div *ngIf="editingShortcut === stopwatch.id" class="shortcut-editing">
+          Press any key...
+        </div>
+        <div *ngIf="editingShortcut !== stopwatch.id" class="shortcut-display">
+          <span class="shortcut-label">Shortcut:</span>
+          <span *ngIf="stopwatch.shortcutKey" class="shortcut-key">{{ stopwatch.shortcutKey }}</span>
+          <button *ngIf="stopwatch.shortcutKey" class="btn-clear-shortcut" (click)="clearShortcut(stopwatch.id)" title="Clear shortcut">×</button>
+          <button *ngIf="!stopwatch.shortcutKey" class="btn btn-sm btn-outline" (click)="startEditingShortcut(stopwatch.id)">
+            Set Key
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="stopwatches.length === 0" class="empty-state">
+    <p>No stopwatches yet. Click "Add Stopwatch" to get started!</p>
+  </div>
+
+  <footer class="info">
+    <p>💡 Tip: Click "Set Key" to assign a keyboard shortcut to toggle a stopwatch</p>
+    <p>Data is automatically saved to your browser's local storage</p>
+  </footer>
+</div>
