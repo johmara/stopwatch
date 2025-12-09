@@ -293,11 +293,18 @@ export class AppComponent implements OnInit {
   }
 
   exportToCSV() {
-    const headers = ['Name', 'Time (seconds)'];
-    const rows = this.stopwatches.map(sw => [
-      sw.name,
-      (sw.time / 1000).toFixed(2)
-    ]);
+    const headers = ['Name', 'Time (seconds)', 'Time (HH:MM:SS.MS)'];
+    const rows = this.stopwatches.map(sw => {
+      const seconds = (sw.time / 1000).toFixed(2);
+      const totalSeconds = Math.floor(sw.time / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const secs = totalSeconds % 60;
+      const milliseconds = Math.floor((sw.time % 1000) / 10);
+      const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+      
+      return [sw.name, seconds, formatted];
+    });
 
     const csvContent = [
       headers.join(','),
