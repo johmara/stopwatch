@@ -1,8 +1,9 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--background-color);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-feature-settings: "ss03", "cv02", "cv11";
 }
 
 .container {
@@ -13,7 +14,7 @@
 
 header {
   text-align: center;
-  color: white;
+  color: var(--main-color);
   margin-bottom: 2rem;
 }
 
@@ -21,7 +22,7 @@ header h1 {
   font-size: 3rem;
   margin: 0 0 0.5rem 0;
   font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: var(--accent-color-1);
 }
 
 .subtitle {
@@ -64,32 +65,32 @@ header h1 {
 }
 
 .btn-primary {
-  background: #4f46e5;
+  background: var(--accent-color-2);
   color: white;
 }
 
 .btn-success {
-  background: #10b981;
-  color: white;
+  background: var(--accent-color-3);
+  color: #1f2937;
 }
 
 .btn-warning {
-  background: #f59e0b;
+  background: var(--accent-color-hint);
   color: white;
 }
 
 .btn-secondary {
-  background: #6b7280;
+  background: var(--main-color);
   color: white;
 }
 
 .btn-danger {
-  background: #ef4444;
+  background: #dc2626;
   color: white;
 }
 
 .btn-info {
-  background: #06b6d4;
+  background: var(--accent-color-2-lighter);
   color: white;
 }
 
@@ -100,8 +101,21 @@ header h1 {
 
 .btn-outline {
   background: transparent;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
+  border: 2px solid var(--accent-color-2);
+  color: var(--accent-color-2);
+}
+
+.kbd {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  background: var(--code-background);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 4px;
+  margin-left: 0.25rem;
+  font-weight: 600;
+  color: var(--accent-color-1);
 }
 
 .stopwatches-grid {
@@ -112,11 +126,12 @@ header h1 {
 }
 
 .stopwatch-card {
-  background: white;
+  background: var(--background-color-darker);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  border: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 .stopwatch-card:hover {
@@ -125,8 +140,8 @@ header h1 {
 }
 
 .stopwatch-card.running {
-  border: 3px solid #10b981;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  border: 3px solid var(--accent-color-3);
+  box-shadow: 0 0 20px rgba(76, 239, 153, 0.3);
 }
 
 .stopwatch-header {
@@ -145,18 +160,19 @@ header h1 {
   padding: 0.25rem;
   transition: border-color 0.2s;
   background: transparent;
+  color: var(--accent-color-1);
 }
 
 .stopwatch-name:focus {
   outline: none;
-  border-bottom-color: #4f46e5;
+  border-bottom-color: var(--accent-color-2);
 }
 
 .btn-close {
   background: transparent;
   border: none;
   font-size: 1.5rem;
-  color: #ef4444;
+  color: var(--accent-color-hint);
   cursor: pointer;
   padding: 0;
   width: 30px;
@@ -169,7 +185,7 @@ header h1 {
 }
 
 .btn-close:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(255, 107, 53, 0.1);
 }
 
 .stopwatch-time {
@@ -178,7 +194,7 @@ header h1 {
   text-align: center;
   margin: 1.5rem 0;
   font-family: 'Courier New', monospace;
-  color: #1f2937;
+  color: var(--accent-color-1);
 }
 
 .stopwatch-controls {
@@ -192,7 +208,7 @@ header h1 {
 }
 
 .shortcut-section {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
   padding-top: 1rem;
   margin-top: 1rem;
 }
@@ -206,23 +222,23 @@ header h1 {
 
 .shortcut-label {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--main-color);
 }
 
 .shortcut-key {
-  background: #f3f4f6;
+  background: var(--code-background);
   padding: 0.25rem 0.75rem;
   border-radius: 6px;
   font-weight: 600;
-  border: 2px solid #e5e7eb;
+  border: 2px solid rgba(128, 128, 128, 0.3);
   font-family: 'Courier New', monospace;
-  color: #1f2937;
+  color: var(--accent-color-1);
 }
 
 .btn-clear-shortcut {
   background: transparent;
   border: none;
-  color: #ef4444;
+  color: var(--accent-color-hint);
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
@@ -236,12 +252,12 @@ header h1 {
 }
 
 .btn-clear-shortcut:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(255, 107, 53, 0.1);
 }
 
 .shortcut-editing {
   text-align: center;
-  color: #4f46e5;
+  color: var(--accent-color-2);
   font-weight: 600;
   animation: pulse 1s infinite;
 }
@@ -256,20 +272,22 @@ header h1 {
 }
 
 .empty-state {
-  background: white;
+  background: var(--background-color-darker);
   border-radius: 12px;
   padding: 3rem;
   text-align: center;
-  color: #6b7280;
+  color: var(--main-color);
   font-size: 1.1rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 .info {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--background-color-darker);
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
-  color: white;
+  color: var(--main-color);
+  border: 1px solid rgba(128, 128, 128, 0.2);
 }
 
 .info p {

@@ -9,13 +9,13 @@
       Add Stopwatch ({{ stopwatches.length }}/20)
     </button>
     <button class="btn btn-success" (click)="startAll()" [disabled]="stopwatches.length === 0">
-      Start All
+      Start All <span class="kbd">Space</span>
     </button>
     <button class="btn btn-warning" (click)="stopAll()" [disabled]="stopwatches.length === 0">
-      Stop All
+      Stop All <span class="kbd">Space</span>
     </button>
     <button class="btn btn-secondary" (click)="resetAll()" [disabled]="stopwatches.length === 0">
-      Reset All
+      Reset All <span class="kbd">R</span>
     </button>
     <button class="btn btn-danger" (click)="clearAll()" [disabled]="stopwatches.length === 0">
       Clear All
@@ -77,7 +77,8 @@
   </div>
 
   <footer class="info">
-    <p>💡 Tip: Click "Set Key" to assign a keyboard shortcut to toggle a stopwatch</p>
+    <p>⌨️ Keyboard Shortcuts: <span class="kbd">Space</span> to Start/Stop All, <span class="kbd">R</span> to Reset All</p>
+    <p>💡 Tip: Click "Set Key" to assign custom shortcuts to individual stopwatches</p>
     <p>Data is automatically saved to your browser's local storage</p>
   </footer>
 </div>

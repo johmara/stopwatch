@@ -124,6 +124,25 @@ export class AppComponent implements OnInit {
       return;
     }
 
+    // Global shortcuts
+    if (event.key === ' ') {
+      event.preventDefault();
+      // Toggle between start all and stop all based on current state
+      const anyRunning = this.stopwatches.some(sw => sw.isRunning);
+      if (anyRunning) {
+        this.stopAll();
+      } else {
+        this.startAll();
+      }
+      return;
+    }
+
+    if (event.key.toLowerCase() === 'r') {
+      event.preventDefault();
+      this.resetAll();
+      return;
+    }
+
     // Check if any stopwatch has this shortcut
     const stopwatch = this.stopwatches.find(sw => sw.shortcutKey === event.key.toLowerCase());
     if (stopwatch) {
