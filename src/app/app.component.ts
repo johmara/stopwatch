@@ -144,11 +144,15 @@ export class AppComponent implements OnInit {
       stopwatch.isRunning = false;
       stopwatch.intervalId = undefined;
     } else {
-      stopwatch.intervalId = setInterval(() => {
-        stopwatch.time += 10;
-        // Force change detection by creating new array reference
-        this.stopwatches = [...this.stopwatches];
-      }, 10);
+      this.ngZone.runOutsideAngular(() => {
+        stopwatch.intervalId = setInterval(() => {
+          stopwatch.time += 10;
+          // Run change detection inside Angular zone
+          this.ngZone.run(() => {
+            // This empty function triggers change detection
+          });
+        }, 10);
+      });
       stopwatch.isRunning = true;
     }
   }
