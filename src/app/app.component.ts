@@ -308,7 +308,7 @@ export class AppComponent implements OnInit {
 
     const csvContent = [
       headers.join(','),
-      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ...rows.map(row => `"${row[0]}",${row[1]},"${row[2]}"`)
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
