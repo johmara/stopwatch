@@ -126,6 +126,12 @@ export class AppComponent implements OnInit {
       return;
     }
 
+    // Ignore keyboard shortcuts if user is typing in an input field
+    const target = event.target as HTMLElement;
+    if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+      return;
+    }
+
     // Global shortcuts
     if (event.key === ' ') {
       event.preventDefault();
