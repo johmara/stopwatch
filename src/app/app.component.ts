@@ -146,7 +146,8 @@ export class AppComponent implements OnInit {
     } else {
       stopwatch.intervalId = setInterval(() => {
         stopwatch.time += 10;
-        this.appRef.tick();
+        // Force change detection by creating new array reference
+        this.stopwatches = [...this.stopwatches];
       }, 10);
       stopwatch.isRunning = true;
     }
