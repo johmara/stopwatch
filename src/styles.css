@@ -49,3 +49,17 @@ body {
     --text-color: #e0e0e0;
   }
 }
+
+/* Dark mode via class (overrides system preference) */
+html.dark-mode {
+  --background-color: #1f1f1f;
+  --background-color-darker: #0d0d0d;
+  --main-color: #b8bec4;
+  --accent-color-1: #e0e0e0;
+  --accent-color-2: #4da6ff;
+  --accent-color-2-lighter: #66b3ff;
+  --accent-color-3: #5dffa7;
+  --accent-color-hint: #ff8c61;
+  --code-background: #2d2d2d;
+  --text-color: #e0e0e0;
+}

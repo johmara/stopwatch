@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   displayInSeconds: boolean = false;
   hideButtons: boolean = false;
   editingTime: number | null = null;
+  isDarkMode: boolean = false;
 
   get allStopped(): boolean {
     return this.stopwatches.every(sw => !sw.isRunning);
@@ -56,6 +57,45 @@ export class AppComponent implements OnInit {
     const hideButtonsPref = localStorage.getItem('hideButtons');
     if (hideButtonsPref !== null) {
       this.hideButtons = hideButtonsPref === 'true';
+    }
+
+    // Initialize theme
+    this.initializeTheme();
+  }
+
+  private initializeTheme(): void {
+    const savedTheme = localStorage.getItem('theme-preference');
+    
+    if (savedTheme) {
+      this.isDarkMode = savedTheme === 'dark';
+    } else {
+      // Use OS preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.isDarkMode = prefersDark;
+    }
+
+    this.applyTheme();
+
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme-preference')) {
+        this.isDarkMode = e.matches;
+        this.applyTheme();
+      }
+    });
+  }
+
+  toggleTheme(): void {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('theme-preference', this.isDarkMode ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    if (this.isDarkMode) {
+      document.documentElement.classList.add('dark-mode');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
     }
   }
 
