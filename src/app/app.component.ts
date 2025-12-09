@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, HostListener, OnInit, NgZone, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 
 interface Stopwatch {
   id: number;
@@ -37,7 +37,11 @@ export class AppComponent implements OnInit {
     return this.stopwatches.every(sw => !sw.isRunning);
   }
 
-  constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private ngZone: NgZone, 
+    private cdr: ChangeDetectorRef,
+    private appRef: ApplicationRef
+  ) {}
 
   ngOnInit() {
     // Load saved stopwatches from localStorage
@@ -139,15 +143,11 @@ export class AppComponent implements OnInit {
       }
       stopwatch.isRunning = false;
       stopwatch.intervalId = undefined;
-      this.cdr.detectChanges();
     } else {
-      this.ngZone.runOutsideAngular(() => {
-        stopwatch.intervalId = setInterval(() => {
-          stopwatch.time += 10;
-          // Trigger change detection manually
-          this.ngZone.run(() => {});
-        }, 10);
-      });
+      stopwatch.intervalId = setInterval(() => {
+        stopwatch.time += 10;
+        this.appRef.tick();
+      }, 10);
       stopwatch.isRunning = true;
     }
   }
