@@ -7,8 +7,8 @@
 - **Tests**: `npm test` (no tests currently configured)
 
 ## Code Style
-- **Framework**: Angular 19.2 LTS, module-based (NOT standalone components)
-- **TypeScript**: Strict mode enabled (`strict: true`, `noImplicitReturns`, `noFallthroughCasesInSwitch`)
+- **Framework**: Angular 21 LTS, module-based (NOT standalone components)
+- **TypeScript**: Strict mode enabled, TypeScript 5.9 (`strict: true`, `noImplicitReturns`, `noFallthroughCasesInSwitch`)
 - **Imports**: Angular core imports first, then interfaces, alphabetically within groups
 - **Types**: Explicit types required; use interfaces for data models (e.g., `Stopwatch`)
 - **Naming**: camelCase for properties/methods, PascalCase for classes/interfaces, kebab-case for CSS classes
