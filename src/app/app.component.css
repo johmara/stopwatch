@@ -358,6 +358,25 @@ header h1 {
   border-radius: 6px;
   padding: 0.3rem 0.2rem;
   width: 3.2rem;
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Remove spinner arrows in Chrome, Safari, Edge */
+.time-component-input::-webkit-outer-spin-button,
+.time-component-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Also remove from seconds input */
+.stopwatch-time-input {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.stopwatch-time-input::-webkit-outer-spin-button,
+.stopwatch-time-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .time-component-input.time-component-small {
