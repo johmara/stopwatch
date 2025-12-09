@@ -201,17 +201,18 @@
         </button>
       </div>
 
-      <div *ngIf="!hideButtons" class="shortcut-section">
+      <div class="shortcut-section">
         <div *ngIf="editingShortcut === stopwatch.id" class="shortcut-editing">
           Press any key...
         </div>
         <div *ngIf="editingShortcut !== stopwatch.id" class="shortcut-display">
           <span class="shortcut-label">Shortcut:</span>
           <span *ngIf="stopwatch.shortcutKey" class="shortcut-key">{{ stopwatch.shortcutKey }}</span>
-          <button *ngIf="stopwatch.shortcutKey" class="btn-clear-shortcut" (click)="clearShortcut(stopwatch.id)" title="Clear shortcut">×</button>
-          <button *ngIf="!stopwatch.shortcutKey" class="btn btn-sm btn-outline" (click)="startEditingShortcut(stopwatch.id)">
+          <button *ngIf="!hideButtons && stopwatch.shortcutKey" class="btn-clear-shortcut" (click)="clearShortcut(stopwatch.id)" title="Clear shortcut">×</button>
+          <button *ngIf="!hideButtons && !stopwatch.shortcutKey" class="btn btn-sm btn-outline" (click)="startEditingShortcut(stopwatch.id)">
             Set Key
           </button>
+          <span *ngIf="hideButtons && !stopwatch.shortcutKey" class="shortcut-none">None</span>
         </div>
       </div>
     </div>

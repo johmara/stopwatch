@@ -356,12 +356,12 @@ header h1 {
   background: var(--background-color);
   border: 3px solid var(--accent-color-2);
   border-radius: 8px;
-  padding: 0.5rem 0.25rem;
-  width: 3rem;
+  padding: 0.5rem 0.5rem;
+  width: 4.5rem;
 }
 
 .time-component-input.time-component-small {
-  width: 2.5rem;
+  width: 4rem;
 }
 
 .time-component-input:focus {
@@ -445,6 +445,13 @@ header h1 {
   border: 2px solid rgba(128, 128, 128, 0.3);
   font-family: 'Courier New', monospace;
   color: var(--accent-color-1);
+}
+
+.shortcut-none {
+  font-size: 0.9rem;
+  color: var(--main-color);
+  opacity: 0.6;
+  font-style: italic;
 }
 
 .btn-clear-shortcut {
@@ -547,11 +554,11 @@ header h1 {
   }
   
   .time-component-input {
-    width: 2.5rem;
-    padding: 0.4rem 0.2rem;
+    width: 3.5rem;
+    padding: 0.4rem 0.4rem;
   }
   
   .time-component-input.time-component-small {
-    width: 2rem;
+    width: 3rem;
   }
 }
