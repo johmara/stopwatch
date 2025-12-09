@@ -64,8 +64,8 @@
     <button class="btn btn-secondary" (click)="relaunchAll()" [disabled]="stopwatches.length === 0">
       Relaunch All <span class="kbd">R</span>
     </button>
-    <button *ngIf="allStopped" class="btn btn-danger" (click)="clearAll()" [disabled]="stopwatches.length === 0">
-      Clear All
+    <button *ngIf="allStopped" class="btn btn-danger" (click)="resetAll()" [disabled]="stopwatches.length === 0">
+      Reset All
     </button>
   </div>
 

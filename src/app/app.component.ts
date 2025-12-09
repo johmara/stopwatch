@@ -280,16 +280,6 @@ export class AppComponent implements OnInit {
     this.toggleStopwatch(1);
   }
 
-  clearAll() {
-    this.stopwatches.forEach(sw => {
-      if (sw.intervalId) {
-        clearInterval(sw.intervalId);
-      }
-    });
-    this.stopwatches = [];
-    this.saveToLocalStorage();
-  }
-
   exportToCSV() {
     const headers = ['Name', 'Time (ms)', 'Time (formatted)', 'Shortcut Key'];
     const rows = this.stopwatches.map(sw => [
