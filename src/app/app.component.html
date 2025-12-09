@@ -114,18 +114,72 @@
           {{ formatTime(stopwatch.time) }}
         </div>
         <div *ngIf="editingTime === stopwatch.id" class="time-edit-container">
+          <!-- Seconds mode: single input -->
           <input 
-            [type]="displayInSeconds ? 'number' : 'text'" 
+            *ngIf="displayInSeconds"
+            type="number" 
             class="stopwatch-time-input"
             [value]="getEditTimeValue(stopwatch.id)"
-            (blur)="finishEditingTime(stopwatch.id)"
             (keydown.enter)="onEnterEditTime($event, stopwatch.id)"
             (keydown.escape)="cancelEditingTime(stopwatch.id)"
             (input)="updateTimeInput(stopwatch.id, $any($event.target).value)"
-            [placeholder]="displayInSeconds ? '123.45' : '00:02:03.45'"
-            [step]="displayInSeconds ? '0.01' : undefined"
+            placeholder="123.45"
+            step="0.01"
             #timeInput
           />
+          
+          <!-- HH:MM:SS mode: separate inputs -->
+          <div *ngIf="!displayInSeconds" class="time-inputs-group">
+            <input 
+              type="number" 
+              class="time-component-input"
+              [(ngModel)]="editHours"
+              (ngModelChange)="updateTimeComponents(stopwatch.id)"
+              (keydown.enter)="onEnterEditTime($event, stopwatch.id)"
+              (keydown.escape)="cancelEditingTime(stopwatch.id)"
+              placeholder="00"
+              min="0"
+              max="99"
+              #hoursInput
+            />
+            <span class="time-separator">:</span>
+            <input 
+              type="number" 
+              class="time-component-input"
+              [(ngModel)]="editMinutes"
+              (ngModelChange)="updateTimeComponents(stopwatch.id)"
+              (keydown.enter)="onEnterEditTime($event, stopwatch.id)"
+              (keydown.escape)="cancelEditingTime(stopwatch.id)"
+              placeholder="00"
+              min="0"
+              max="59"
+            />
+            <span class="time-separator">:</span>
+            <input 
+              type="number" 
+              class="time-component-input"
+              [(ngModel)]="editSeconds"
+              (ngModelChange)="updateTimeComponents(stopwatch.id)"
+              (keydown.enter)="onEnterEditTime($event, stopwatch.id)"
+              (keydown.escape)="cancelEditingTime(stopwatch.id)"
+              placeholder="00"
+              min="0"
+              max="59"
+            />
+            <span class="time-separator">.</span>
+            <input 
+              type="number" 
+              class="time-component-input time-component-small"
+              [(ngModel)]="editCentiseconds"
+              (ngModelChange)="updateTimeComponents(stopwatch.id)"
+              (keydown.enter)="onEnterEditTime($event, stopwatch.id)"
+              (keydown.escape)="cancelEditingTime(stopwatch.id)"
+              placeholder="00"
+              min="0"
+              max="99"
+            />
+          </div>
+
           <div class="time-edit-buttons">
             <button class="btn btn-sm btn-success" (click)="finishEditingTime(stopwatch.id)">✓</button>
             <button class="btn btn-sm btn-secondary" (click)="cancelEditingTime(stopwatch.id)">✕</button>

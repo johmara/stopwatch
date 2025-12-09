@@ -26,6 +26,12 @@ export class AppComponent implements OnInit {
   hideButtons: boolean = false;
   editingTime: number | null = null;
   isDarkMode: boolean = false;
+  
+  // Time component editing properties
+  editHours: number = 0;
+  editMinutes: number = 0;
+  editSeconds: number = 0;
+  editCentiseconds: number = 0;
 
   get allStopped(): boolean {
     return this.stopwatches.every(sw => !sw.isRunning);
@@ -340,15 +346,45 @@ export class AppComponent implements OnInit {
       // Store original time in case user cancels
       (stopwatch as any).originalTime = stopwatch.time;
       this.editingTime = id;
+      
+      // Populate component values if in HH:MM:SS mode
+      if (!this.displayInSeconds) {
+        const totalSeconds = Math.floor(stopwatch.time / 1000);
+        this.editHours = Math.floor(totalSeconds / 3600);
+        this.editMinutes = Math.floor((totalSeconds % 3600) / 60);
+        this.editSeconds = totalSeconds % 60;
+        this.editCentiseconds = Math.floor((stopwatch.time % 1000) / 10);
+      }
+      
       // Focus the input after Angular renders it
       setTimeout(() => {
-        const input = document.querySelector('.stopwatch-time-input') as HTMLInputElement;
+        const input = document.querySelector('.stopwatch-time-input, .time-component-input') as HTMLInputElement;
         if (input) {
           input.focus();
           input.select();
         }
       }, 0);
     }
+  }
+  
+  updateTimeComponents(id: number) {
+    const stopwatch = this.stopwatches.find(sw => sw.id === id);
+    if (!stopwatch) return;
+    
+    // Ensure values are within valid ranges
+    const hours = Math.max(0, Math.min(99, this.editHours || 0));
+    const minutes = Math.max(0, Math.min(59, this.editMinutes || 0));
+    const seconds = Math.max(0, Math.min(59, this.editSeconds || 0));
+    const centiseconds = Math.max(0, Math.min(99, this.editCentiseconds || 0));
+    
+    // Update component values if they were clamped
+    this.editHours = hours;
+    this.editMinutes = minutes;
+    this.editSeconds = seconds;
+    this.editCentiseconds = centiseconds;
+    
+    // Calculate total time in milliseconds
+    stopwatch.time = (hours * 3600 + minutes * 60 + seconds) * 1000 + centiseconds * 10;
   }
 
   onEnterEditTime(event: KeyboardEvent, id: number) {

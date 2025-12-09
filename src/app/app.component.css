@@ -318,7 +318,7 @@ header h1 {
 }
 
 .stopwatch-time-input {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
   font-family: 'Courier New', monospace;
@@ -326,7 +326,7 @@ header h1 {
   background: var(--background-color);
   border: 3px solid var(--accent-color-2);
   border-radius: 8px;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   width: 100%;
   max-width: 350px;
 }
@@ -335,6 +335,47 @@ header h1 {
   outline: none;
   border-color: var(--accent-color-3);
   box-shadow: 0 0 0 3px rgba(76, 239, 153, 0.2);
+}
+
+.time-inputs-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.time-component-input {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  color: var(--accent-color-1);
+  background: var(--background-color);
+  border: 3px solid var(--accent-color-2);
+  border-radius: 8px;
+  padding: 0.5rem 0.25rem;
+  width: 3rem;
+}
+
+.time-component-input.time-component-small {
+  width: 2.5rem;
+}
+
+.time-component-input:focus {
+  outline: none;
+  border-color: var(--accent-color-3);
+  box-shadow: 0 0 0 3px rgba(76, 239, 153, 0.2);
+}
+
+.time-separator {
+  color: var(--accent-color-1);
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  user-select: none;
 }
 
 .time-edit-buttons {
@@ -497,5 +538,20 @@ header h1 {
 
   .stopwatch-time {
     font-size: 2rem;
+  }
+  
+  .stopwatch-time-input,
+  .time-component-input,
+  .time-separator {
+    font-size: 2rem;
+  }
+  
+  .time-component-input {
+    width: 2.5rem;
+    padding: 0.4rem 0.2rem;
+  }
+  
+  .time-component-input.time-component-small {
+    width: 2rem;
   }
 }
