@@ -5,8 +5,8 @@
 **A sleek, powerful stopwatch app with keyboard shortcuts and dark mode**
 
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://johan.martinson.phd/stopwatch/)
-[![Angular](https://img.shields.io/badge/Angular-21_LTS-red?style=for-the-badge&logo=angular)](https://angular.io)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+[![Angular](https://img.shields.io/badge/Angular-19_LTS-red?style=for-the-badge&logo=angular)](https://angular.io)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
 [Live Demo](https://johan.martinson.phd/stopwatch/) • [Report Bug](https://github.com/johmara/stopwatch/issues) • [Request Feature](https://github.com/johmara/stopwatch/issues)
@@ -88,7 +88,7 @@
 
 ## 💻 Development
 
-This project uses Angular 21 LTS with TypeScript 5.9 strict mode.
+This project uses Angular 19 LTS with TypeScript 5.6 strict mode.
 
 ### Setup
 ```bash
@@ -115,8 +115,8 @@ src/
 ```
 
 ### Key Technologies
-- **Angular 21 LTS**: Module-based architecture (not standalone)
-- **TypeScript 5.9**: Strict mode with explicit types
+- **Angular 19 LTS**: Module-based architecture (not standalone)
+- **TypeScript 5.6**: Strict mode with explicit types
 - **CSS Variables**: For light/dark theme switching
 - **LocalStorage**: For data persistence
 - **HTML5 Drag-and-Drop**: For stopwatch reordering

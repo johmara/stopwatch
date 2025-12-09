@@ -293,12 +293,10 @@ export class AppComponent implements OnInit {
   }
 
   exportToCSV() {
-    const headers = ['Name', 'Time (ms)', 'Time (formatted)', 'Shortcut Key'];
+    const headers = ['Name', 'Time (seconds)'];
     const rows = this.stopwatches.map(sw => [
       sw.name,
-      sw.time.toString(),
-      this.formatTime(sw.time),
-      sw.shortcutKey || 'None'
+      (sw.time / 1000).toFixed(2)
     ]);
 
     const csvContent = [
