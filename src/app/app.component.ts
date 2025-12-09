@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
 
   editingShortcut: number | null = null;
   draggedIndex: number | null = null;
+  displayInSeconds: boolean = false;
 
   get allStopped(): boolean {
     return this.stopwatches.every(sw => !sw.isRunning);
@@ -41,6 +42,12 @@ export class AppComponent implements OnInit {
       } catch (e) {
         console.error('Failed to load stopwatches', e);
       }
+    }
+
+    // Load display preference
+    const displayPref = localStorage.getItem('displayInSeconds');
+    if (displayPref !== null) {
+      this.displayInSeconds = displayPref === 'true';
     }
   }
 
@@ -253,13 +260,25 @@ export class AppComponent implements OnInit {
   }
 
   formatTime(ms: number): string {
-    const totalSeconds = Math.floor(ms / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    const milliseconds = Math.floor((ms % 1000) / 10);
+    if (this.displayInSeconds) {
+      // Display in seconds with 2 decimal places
+      const seconds = (ms / 1000).toFixed(2);
+      return `${seconds}s`;
+    } else {
+      // Display in HH:MM:SS.MS format
+      const totalSeconds = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const milliseconds = Math.floor((ms % 1000) / 10);
 
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+    }
+  }
+
+  toggleDisplayFormat() {
+    this.displayInSeconds = !this.displayInSeconds;
+    localStorage.setItem('displayInSeconds', this.displayInSeconds.toString());
   }
 
   private saveToLocalStorage() {

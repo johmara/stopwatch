@@ -2,6 +2,11 @@
   <header>
     <h1>Multi-Stopwatch Timer</h1>
     <p class="subtitle">Manage unlimited stopwatches with keyboard shortcuts</p>
+    <div class="display-toggle">
+      <button class="btn btn-sm btn-outline" (click)="toggleDisplayFormat()">
+        {{ displayInSeconds ? 'Show HH:MM:SS' : 'Show Seconds' }}
+      </button>
+    </div>
   </header>
 
   <div class="controls">
