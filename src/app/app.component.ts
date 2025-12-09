@@ -337,6 +337,8 @@ export class AppComponent implements OnInit {
   startEditingTime(id: number) {
     const stopwatch = this.stopwatches.find(sw => sw.id === id);
     if (stopwatch && !stopwatch.isRunning) {
+      // Store original time in case user cancels
+      (stopwatch as any).originalTime = stopwatch.time;
       this.editingTime = id;
       // Focus the input after Angular renders it
       setTimeout(() => {
@@ -347,6 +349,21 @@ export class AppComponent implements OnInit {
         }
       }, 0);
     }
+  }
+
+  onEnterEditTime(event: KeyboardEvent, id: number) {
+    event.preventDefault();
+    this.finishEditingTime(id);
+  }
+
+  cancelEditingTime(id: number) {
+    const stopwatch = this.stopwatches.find(sw => sw.id === id);
+    if (stopwatch && (stopwatch as any).originalTime !== undefined) {
+      // Restore original time
+      stopwatch.time = (stopwatch as any).originalTime;
+      delete (stopwatch as any).originalTime;
+    }
+    this.editingTime = null;
   }
 
   getEditTimeValue(id: number): string {
@@ -398,6 +415,10 @@ export class AppComponent implements OnInit {
   }
 
   finishEditingTime(id: number) {
+    const stopwatch = this.stopwatches.find(sw => sw.id === id);
+    if (stopwatch && (stopwatch as any).originalTime !== undefined) {
+      delete (stopwatch as any).originalTime;
+    }
     this.editingTime = null;
     this.saveToLocalStorage();
   }

@@ -82,15 +82,17 @@
       (dragend)="onDragEnd()"
     >
       <div class="card-actions">
-        <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
-        <button 
-          class="btn-edit-time" 
-          (click)="startEditingTime(stopwatch.id)"
-          title="Edit time manually"
-        >
-          ✎
-        </button>
-        <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
+        <div class="drag-handle drag-handle-left" title="Drag to reorder">⋮⋮</div>
+        <div class="card-actions-right">
+          <button 
+            class="btn-edit-time" 
+            (click)="startEditingTime(stopwatch.id)"
+            title="Edit time manually"
+          >
+            ✎
+          </button>
+          <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
+        </div>
       </div>
       <div class="stopwatch-header">
         <input 
@@ -111,17 +113,24 @@
         >
           {{ formatTime(stopwatch.time) }}
         </div>
-        <input 
-          *ngIf="editingTime === stopwatch.id" 
-          [type]="displayInSeconds ? 'number' : 'text'" 
-          class="stopwatch-time-input"
-          [value]="getEditTimeValue(stopwatch.id)"
-          (blur)="finishEditingTime(stopwatch.id)"
-          (keydown.enter)="finishEditingTime(stopwatch.id)"
-          (input)="updateTimeInput(stopwatch.id, $any($event.target).value)"
-          [placeholder]="displayInSeconds ? 'Time in seconds' : 'HH:MM:SS.MS'"
-          #timeInput
-        />
+        <div *ngIf="editingTime === stopwatch.id" class="time-edit-container">
+          <input 
+            [type]="displayInSeconds ? 'number' : 'text'" 
+            class="stopwatch-time-input"
+            [value]="getEditTimeValue(stopwatch.id)"
+            (blur)="finishEditingTime(stopwatch.id)"
+            (keydown.enter)="onEnterEditTime($event, stopwatch.id)"
+            (keydown.escape)="cancelEditingTime(stopwatch.id)"
+            (input)="updateTimeInput(stopwatch.id, $any($event.target).value)"
+            [placeholder]="displayInSeconds ? '123.45' : '00:02:03.45'"
+            [step]="displayInSeconds ? '0.01' : undefined"
+            #timeInput
+          />
+          <div class="time-edit-buttons">
+            <button class="btn btn-sm btn-success" (click)="finishEditingTime(stopwatch.id)">✓</button>
+            <button class="btn btn-sm btn-secondary" (click)="cancelEditingTime(stopwatch.id)">✕</button>
+          </div>
+        </div>
       </div>
 
       <div *ngIf="!hideButtons" class="stopwatch-controls">

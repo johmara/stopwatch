@@ -206,11 +206,23 @@ header h1 {
 .card-actions {
   position: absolute;
   top: 0.5rem;
+  left: 0.5rem;
   right: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.card-actions > * {
+  pointer-events: auto;
+}
+
+.card-actions-right {
   display: flex;
   gap: 0.25rem;
   align-items: center;
-  z-index: 10;
 }
 
 .drag-handle {
@@ -277,6 +289,16 @@ header h1 {
   align-items: center;
   justify-content: center;
   margin: 1.5rem 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.time-edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
 }
 
 .stopwatch-time {
@@ -296,22 +318,32 @@ header h1 {
 }
 
 .stopwatch-time-input {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
   font-family: 'Courier New', monospace;
   color: var(--accent-color-1);
   background: var(--background-color);
-  border: 2px solid var(--accent-color-2);
+  border: 3px solid var(--accent-color-2);
   border-radius: 8px;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
   width: 100%;
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .stopwatch-time-input:focus {
   outline: none;
   border-color: var(--accent-color-3);
+  box-shadow: 0 0 0 3px rgba(76, 239, 153, 0.2);
+}
+
+.time-edit-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.time-edit-buttons .btn {
+  min-width: 60px;
 }
 
 .btn-edit-time {
