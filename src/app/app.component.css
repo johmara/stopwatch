@@ -199,6 +199,11 @@ header h1 {
 }
 
 .stopwatch-card.running {
+  border: 3px solid var(--accent-color-2);
+  box-shadow: 0 0 20px rgba(0, 115, 177, 0.3);
+}
+
+.dark-mode .stopwatch-card.running {
   border: 3px solid var(--accent-color-3);
   box-shadow: 0 0 20px rgba(76, 239, 153, 0.3);
 }
