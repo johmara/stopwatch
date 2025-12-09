@@ -40,18 +40,16 @@ export class AppComponent implements OnInit {
   }
 
   addStopwatch() {
-    if (this.stopwatches.length < 20) {
-      const newId = this.stopwatches.length > 0 
-        ? Math.max(...this.stopwatches.map(sw => sw.id)) + 1 
-        : 1;
-      this.stopwatches.push({ 
-        id: newId, 
-        name: `Stopwatch ${newId}`, 
-        time: 0, 
-        isRunning: false 
-      });
-      this.saveToLocalStorage();
-    }
+    const newId = this.stopwatches.length > 0 
+      ? Math.max(...this.stopwatches.map(sw => sw.id)) + 1 
+      : 1;
+    this.stopwatches.push({ 
+      id: newId, 
+      name: `Stopwatch ${newId}`, 
+      time: 0, 
+      isRunning: false 
+    });
+    this.saveToLocalStorage();
   }
 
   removeStopwatch(id: number) {
@@ -139,7 +137,7 @@ export class AppComponent implements OnInit {
 
     if (event.key.toLowerCase() === 'r') {
       event.preventDefault();
-      this.resetAll();
+      this.relaunchAll();
       return;
     }
 
@@ -185,6 +183,29 @@ export class AppComponent implements OnInit {
       sw.intervalId = undefined;
     });
     this.saveToLocalStorage();
+  }
+
+  relaunchAll() {
+    // Clear all stopwatches
+    this.stopwatches.forEach(sw => {
+      if (sw.intervalId) {
+        clearInterval(sw.intervalId);
+      }
+    });
+    this.stopwatches = [];
+    
+    // Add one new stopwatch and start it
+    this.stopwatches.push({ 
+      id: 1, 
+      name: 'Stopwatch 1', 
+      time: 0, 
+      isRunning: false 
+    });
+    
+    this.saveToLocalStorage();
+    
+    // Start the new stopwatch immediately
+    this.toggleStopwatch(1);
   }
 
   clearAll() {
