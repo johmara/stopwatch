@@ -135,7 +135,3 @@ Works in all modern browsers with localStorage and CSS custom properties support
 - Chrome/Edge 88+
 - Firefox 85+
 - Safari 14+
-
-## License
-
-MIT
