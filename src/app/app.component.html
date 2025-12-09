@@ -20,13 +20,21 @@
     <button *ngIf="allStopped" class="btn btn-danger" (click)="clearAll()" [disabled]="stopwatches.length === 0">
       Clear All
     </button>
-    <button *ngIf="allStopped" class="btn btn-info" (click)="exportToCSV()" [disabled]="stopwatches.length === 0">
-      Export to CSV
-    </button>
   </div>
 
   <div class="stopwatches-grid">
-    <div *ngFor="let stopwatch of stopwatches" class="stopwatch-card" [class.running]="stopwatch.isRunning">
+    <div 
+      *ngFor="let stopwatch of stopwatches; let i = index" 
+      class="stopwatch-card" 
+      [class.running]="stopwatch.isRunning"
+      [class.dragging]="draggedIndex === i"
+      draggable="true"
+      (dragstart)="onDragStart(i, $event)"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop(i, $event)"
+      (dragend)="onDragEnd()"
+    >
+      <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
       <div class="stopwatch-header">
         <input 
           type="text" 
@@ -79,6 +87,13 @@
   <footer class="info">
     <p>⌨️ Keyboard Shortcuts: <span class="kbd">Space</span> to Start/Stop All, <span class="kbd">R</span> to Relaunch All</p>
     <p>💡 Tip: Click "Set Key" to assign custom shortcuts to individual stopwatches</p>
+    <p>🎯 Tip: Drag and drop stopwatches to reorder them</p>
     <p>Data is automatically saved to your browser's local storage</p>
   </footer>
+
+  <div *ngIf="allStopped && stopwatches.length > 0" class="export-section">
+    <button class="btn btn-info btn-export" (click)="exportToCSV()">
+      Export to CSV
+    </button>
+  </div>
 </div>

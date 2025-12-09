@@ -132,6 +132,8 @@ header h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   border: 1px solid rgba(128, 128, 128, 0.2);
+  cursor: grab;
+  position: relative;
 }
 
 .stopwatch-card:hover {
@@ -139,9 +141,35 @@ header h1 {
   transform: translateY(-2px);
 }
 
+.stopwatch-card:active {
+  cursor: grabbing;
+}
+
+.stopwatch-card.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
 .stopwatch-card.running {
   border: 3px solid var(--accent-color-3);
   box-shadow: 0 0 20px rgba(76, 239, 153, 0.3);
+}
+
+.drag-handle {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--main-color);
+  opacity: 0.3;
+  transition: opacity 0.2s;
+  cursor: grab;
+  user-select: none;
+  pointer-events: none;
+}
+
+.stopwatch-card:hover .drag-handle {
+  opacity: 0.6;
 }
 
 .stopwatch-header {
@@ -293,6 +321,16 @@ header h1 {
 .info p {
   margin: 0.5rem 0;
   opacity: 0.9;
+}
+
+.export-section {
+  margin-top: 2rem;
+  text-align: center;
+  padding-bottom: 2rem;
+}
+
+.btn-export {
+  min-width: 200px;
 }
 
 @media (max-width: 768px) {

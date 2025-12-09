@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   ];
 
   editingShortcut: number | null = null;
+  draggedIndex: number | null = null;
 
   get allStopped(): boolean {
     return this.stopwatches.every(sw => !sw.isRunning);
@@ -270,5 +271,41 @@ export class AppComponent implements OnInit {
       shortcutKey: sw.shortcutKey
     }));
     localStorage.setItem('stopwatches', JSON.stringify(toSave));
+  }
+
+  // Drag and drop methods
+  onDragStart(index: number, event: DragEvent) {
+    this.draggedIndex = index;
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/html', index.toString());
+    }
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = 'move';
+    }
+  }
+
+  onDrop(dropIndex: number, event: DragEvent) {
+    event.preventDefault();
+    if (this.draggedIndex !== null && this.draggedIndex !== dropIndex) {
+      const draggedItem = this.stopwatches[this.draggedIndex];
+      
+      // Remove from old position
+      this.stopwatches.splice(this.draggedIndex, 1);
+      
+      // Insert at new position
+      this.stopwatches.splice(dropIndex, 0, draggedItem);
+      
+      this.saveToLocalStorage();
+    }
+    this.draggedIndex = null;
+  }
+
+  onDragEnd() {
+    this.draggedIndex = null;
   }
 }
