@@ -81,8 +81,18 @@
       (drop)="onDrop(i, $event)"
       (dragend)="onDragEnd()"
     >
-      <div class="stopwatch-header">
+      <div class="card-actions">
         <div class="drag-handle" title="Drag to reorder">⋮⋮</div>
+        <button 
+          class="btn-edit-time" 
+          (click)="startEditingTime(stopwatch.id)"
+          title="Edit time manually"
+        >
+          ✎
+        </button>
+        <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
+      </div>
+      <div class="stopwatch-header">
         <input 
           type="text" 
           class="stopwatch-name"
@@ -90,16 +100,6 @@
           (input)="updateName(stopwatch.id, $any($event.target).value)"
           placeholder="Stopwatch name"
         />
-        <div class="header-buttons">
-          <button 
-            class="btn-edit-time" 
-            (click)="startEditingTime(stopwatch.id)"
-            title="Edit time manually"
-          >
-            ✎
-          </button>
-          <button class="btn-close" (click)="removeStopwatch(stopwatch.id)" title="Remove">×</button>
-        </div>
       </div>
       
       <div class="stopwatch-time-wrapper">
