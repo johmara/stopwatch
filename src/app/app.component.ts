@@ -22,6 +22,10 @@ export class AppComponent implements OnInit {
 
   editingShortcut: number | null = null;
 
+  get allStopped(): boolean {
+    return this.stopwatches.every(sw => !sw.isRunning);
+  }
+
   ngOnInit() {
     // Load saved stopwatches from localStorage
     const saved = localStorage.getItem('stopwatches');
