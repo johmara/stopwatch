@@ -226,18 +226,17 @@ header h1 {
 }
 
 .drag-handle {
-  font-size: 1.2rem;
-  color: var(--main-color);
-  opacity: 0.3;
-  transition: opacity 0.2s;
+  min-width: 24px;
+  min-height: 24px;
   cursor: grab;
   user-select: none;
   display: flex;
   align-items: center;
+  opacity: 0;
 }
 
 .stopwatch-card:hover .drag-handle {
-  opacity: 0.6;
+  opacity: 0;
 }
 
 .stopwatch-header {
