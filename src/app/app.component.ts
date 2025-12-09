@@ -342,29 +342,35 @@ export class AppComponent implements OnInit {
 
   startEditingTime(id: number) {
     const stopwatch = this.stopwatches.find(sw => sw.id === id);
-    if (stopwatch && !stopwatch.isRunning) {
-      // Store original time in case user cancels
-      (stopwatch as any).originalTime = stopwatch.time;
-      this.editingTime = id;
-      
-      // Populate component values if in HH:MM:SS mode
-      if (!this.displayInSeconds) {
-        const totalSeconds = Math.floor(stopwatch.time / 1000);
-        this.editHours = Math.floor(totalSeconds / 3600);
-        this.editMinutes = Math.floor((totalSeconds % 3600) / 60);
-        this.editSeconds = totalSeconds % 60;
-        this.editCentiseconds = Math.floor((stopwatch.time % 1000) / 10);
-      }
-      
-      // Focus the input after Angular renders it
-      setTimeout(() => {
-        const input = document.querySelector('.stopwatch-time-input, .time-component-input') as HTMLInputElement;
-        if (input) {
-          input.focus();
-          input.select();
-        }
-      }, 0);
+    if (!stopwatch || stopwatch.isRunning) return;
+    
+    // If already editing this stopwatch, finish the edit instead
+    if (this.editingTime === id) {
+      this.finishEditingTime(id);
+      return;
     }
+    
+    // Store original time in case user cancels
+    (stopwatch as any).originalTime = stopwatch.time;
+    this.editingTime = id;
+    
+    // Populate component values if in HH:MM:SS mode
+    if (!this.displayInSeconds) {
+      const totalSeconds = Math.floor(stopwatch.time / 1000);
+      this.editHours = Math.floor(totalSeconds / 3600);
+      this.editMinutes = Math.floor((totalSeconds % 3600) / 60);
+      this.editSeconds = totalSeconds % 60;
+      this.editCentiseconds = Math.floor((stopwatch.time % 1000) / 10);
+    }
+    
+    // Focus the input after Angular renders it
+    setTimeout(() => {
+      const input = document.querySelector('.stopwatch-time-input, .time-component-input') as HTMLInputElement;
+      if (input) {
+        input.focus();
+        input.select();
+      }
+    }, 0);
   }
   
   updateTimeComponents(id: number) {
